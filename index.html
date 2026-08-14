@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faty-storee1 - لوحة الديسك توب</title>
+
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --beige-light: #fdfbf7;
+            --beige-main: #f3e9dc;
+            --beige-dark: #e4d3c0;
+            --maroon-main: #800020;
+            --maroon-dark: #5c0017;
+            --text-dark: #2c2c2c;
+            --text-muted: #666666;
+            --white: #ffffff;
+            --border-color: #e8ded1;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #eef1f5;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* إطار شاشة الكمبيوتر (Desktop Viewport Container) */
+        .desktop-frame {
+            width: 100%;
+            max-width: 1200px;
+            height: 85vh;
+            min-height: 650px;
+            background-color: var(--beige-light);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            display: flex;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* 1. الشريط الجانبي (Sidebar) */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--maroon-main);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-item {
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: rgba(255,255,255,0.15);
+            color: var(--white);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 15px;
+        }
+
+        .admin-btn {
+            width: 100%;
+            background-color: var(--white);
+            color: var(--maroon-main);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* 2. منطقة المحتوى الرئيسي (Main Content) */
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* الهيدر العلوي */
+        .desktop-header {
+            background-color: var(--white);
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--beige-light);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 6px 16px;
+            width: 320px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+
+        .contact-top-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--maroon-main);
+            font-weight: 700;
+            font-size: 13px;
+            direction: ltr;
+        }
+
+        /* البنر الرئيسي للديسك توب */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--beige-main) 0%, var(--beige-dark) 100%);
+            padding: 30px;
+            margin: 20px 30px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--maroon-dark);
+            margin-bottom: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: 13px;
+            color: var(--text-dark);
+        }
+
+        /* شبكة المنتجات (4 أعمدة للديسك توب) */
+        .products-section {
+            padding: 10px 30px 30px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background-color: var(--beige-main);
+        }
+
+        .product-info {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--maroon-main);
+            font-weight: 700;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 4px 0 6px;
+            color: var(--text-dark);
+        }
+
+        .product-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            height: 32px;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--maroon-dark);
+        }
+
+        .btn-order {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(128, 0, 32, 0.85);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            display: none;
+            font-size: 11px;
+        }
+
+        /* 3. النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--maroon-main);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- إطار منظور شاشة الكمبيوتر -->
+    <div class="desktop-frame">
+        
+        <!-- القائمة الجانبية (Sidebar) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">Faty-storee1</div>
+            
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" onclick="filterCategory('الكل', this)"><i class="fa-solid fa-border-all"></i> جميع المنتجات</li>
+                <li class="sidebar-item" onclick="filterCategory('عطور', this)"><i class="fa-solid fa-spray-can"></i> عطور</li>
+                <li class="sidebar-item" onclick="filterCategory('مكياج', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> مكياج</li>
+                <li class="sidebar-item" onclick="filterCategory('عناية', this)"><i class="fa-solid fa-heart"></i> عناية</li>
+                <li class="sidebar-item" onclick="filterCategory('ايس كوفي', this)"><i class="fa-solid fa-mug-hot"></i> ايس كوفي</li>
+                <li class="sidebar-item" onclick="filterCategory('بوكسات', this)"><i class="fa-solid fa-box-open"></i> بوكسات</li>
+                <li class="sidebar-item" onclick="filterCategory('قاصات', this)"><i class="fa-solid fa-piggy-bank"></i> قاصات</li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button class="admin-btn" onclick="openAdminLogin()"><i class="fa-solid fa-lock"></i> لوحة الإدارة</button>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي (Main Dashboard Area) -->
+        <main class="main-wrapper">
+            
+            <!-- الهيدر العلوي -->
+            <header class="desktop-header">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass" style="color: var(--maroon-main);"></i>
+                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="ابحثي عن منتج، عطر، مكياج...">
+                </div>
+
+                <a href="https://wa.me/9647809962624" target="_blank" class="contact-top-link">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 18px; color: #25d366;"></i>
+                    <span>07809962624</span>
+                </a>
+            </header>
+
+            <!-- البنر الرئيسي -->
+            <section class="hero-banner">
+                <h1 class="hero-title">كل ما تحتاجينه... في مكان واحد</h1>
+                <p class="hero-subtitle">تصفحي أفضل المنتجات والعروض الحصرية عبر لوحة تحكم المتجر</p>
+            </section>
+
+            <!-- عرض المنتجات -->
+            <section class="products-section">
+                <div class="products-grid" id="productsGrid">
+                    <!-- يتم تحميل المنتجات بواسطة JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modal: تسجيل دخول الإدارة -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>دخول لوحة الإدارة</h3>
+                <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('loginModal')"></i>
+            </div>
+            <div class="form-group">
+                <label>أدخل رمز المرور:</label>
+                <input type="password" id="adminPassInput" placeholder="رمز المرور">
+            </div>
+            <button class="submit-btn" onclick="verifyAdmin()">دخول</button>
+        </div>
+    </div>
+
+    <!-- Modal: إضافة منتج جديد -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إضافة منتج جديد</h3>
+                <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeModal('addProductModal')"></i>
+            </div>
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <div class="form-group">
+                    <label>اسم المنتج:</label>
+                    <input type="text" id="pTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>القسم:</label>
+                    <select id="pCategory" required>
+                        <option value="عطور">عطور</option>
+                        <option value="مكياج">مكياج</option>
+                        <option value="عناية">عناية</option>
+                        <option value="ايس كوفي">ايس كوفي</option>
+                        <option value="بوكسات">بوكسات</option>
+                        <option value="قاصات">قاصات</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>السعر (د.ع):</label>
+                    <input type="text" id="pPrice" placeholder="مثال: 15,000" required>
+                </div>
+                <div class="form-group">
+                    <label>الوصف والتفاصيل:</label>
+                    <textarea id="pDesc" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>صورة المنتج (من الاستوديو):</label>
+                    <input type="file" id="pImageFile" accept="image/*" required>
+                </div>
+                <button type="submit" class="submit-btn">نشر المنتج</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_CODE = "FF";
+        let isAdminLoggedIn = false;
+        let selectedCategory = "الكل";
+
+        let products = JSON.parse(localStorage.getItem('faty_products')) || [
+            {
+                id: 1,
+                title: "عطر ميني فاخر",
+                category: "عطور",
+                price: "12,000 د.ع",
+                desc: "عطر ثابت يدوم طويلاً برائحة مميزة.",
+                image: "https://via.placeholder.com/300/800020/ffffff?text=Perfume"
+            }
+        ];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderProducts();
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            grid.innerHTML = "";
+
+            const filtered = products.filter(p => {
+                const matchesCat = (selectedCategory === "الكل" || p.category === selectedCategory);
+                const matchesSearch = p.title.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">لا توجد منتجات لعرضها.</div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const whatsappMsg = encodeURIComponent(`مرحباً، أود طلب المنتج التالية تفاصيله:\nالاسم: ${p.title}\nالسعر: ${p.price}\nالقسم: ${p.category}`);
+                
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    ${isAdminLoggedIn ? `<button class="delete-btn" style="display:block;" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    <img src="${p.image}" class="product-img" alt="${p.title}">
+                    <div class="product-info">
+                        <span class="product-category">${p.category}</span>
+                        <h4 class="product-title">${p.title}</h4>
+                        <p class="product-desc">${p.desc}</p>
+                        <div class="product-footer">
+                            <span class="product-price">${p.price}</span>
+                            <a href="https://wa.me/9647809962624?text=${whatsappMsg}" target="_blank" class="btn-order">
+                                <i class="fa-brands fa-whatsapp"></i> طلب
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category, el) {
+            selectedCategory = category;
+            document.querySelectorAll('.sidebar-item').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            renderProducts();
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function openAdminLogin() {
+            if(isAdminLoggedIn) {
+                document.getElementById('addProductModal').style.display = 'flex';
+            } else {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+        }
+
+        function verifyAdmin() {
+            const input = document.getElementById('adminPassInput').value;
+            if(input === ADMIN_CODE) {
+                isAdminLoggedIn = true;
+                closeModal('loginModal');
+                document.getElementById('adminPassInput').value = '';
+                alert("تم تسجيل الدخول بنجاح! يمكنك الآن إضافة أو حذف المنتجات.");
+                renderProducts();
+                document.getElementById('addProductModal').style.display = 'flex';
+            } else {
+                alert("رمز المرور خاطئ!");
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('pImageFile');
+            const file = fileInput.files[0];
+
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const newProduct = {
+                        id: Date.now(),
+                        title: document.getElementById('pTitle').value,
+                        category: document.getElementById('pCategory').value,
+                        price: document.getElementById('pPrice').value,
+                        desc: document.getElementById('pDesc').value,
+                        image: evt.target.result
+                    };
+
+                    products.unshift(newProduct);
+                    localStorage.setItem('faty_products', JSON.stringify(products));
+                    renderProducts();
+                    closeModal('addProductModal');
+                    document.getElementById('productForm').reset();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function deleteProduct(id) {
+            if(confirm("هل انت محق في حذف هذا المنتج؟")) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('faty_products', JSON.stringify(products));
+                renderProducts();
+            }
+        }
+    </script>
+</body>
+</html>

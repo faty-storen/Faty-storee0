@@ -31,7 +31,7 @@
         .header-icons { display: flex; gap: 15px; align-items: center; }
         .header-icons i { font-size: 16px; color: var(--maroon-main); cursor: pointer; }
 
-        .cart-icon-wrap, .wish-icon-wrap { position: relative; cursor: pointer; }
+        .cart-icon-wrap { position: relative; cursor: pointer; }
         .badge { position: absolute; top: -6px; right: -8px; background: var(--maroon-main); color: #FAF7F2; font-size: 8px; border-radius: 50%; width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
         .logo-box { text-align: center; cursor: pointer; }
@@ -42,7 +42,7 @@
         .search-input { width: 100%; padding: 8px 18px; background: rgba(88, 24, 37, 0.03); border: 1px solid var(--border-color); border-radius: 30px; color: var(--text-main); font-size: 11px; outline: none; }
 
         /* Hero Banner */
-        .hero { height: 300px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: linear-gradient(180deg, rgba(250,247,242,0.2) 0%, var(--bg-body) 100%), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200') center/cover; margin-bottom: 25px; }
+        .hero { height: 260px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: linear-gradient(180deg, rgba(250,247,242,0.2) 0%, var(--bg-body) 100%), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200') center/cover; margin-bottom: 25px; }
         .hero-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--maroon-dark); margin-bottom: 10px; }
         .btn-shop { background: var(--maroon-main); color: #FAF7F2; border: none; padding: 10px 30px; font-size: 11px; border-radius: 25px; cursor: pointer; }
 
@@ -74,7 +74,9 @@
         .modal-box { background: var(--bg-card); border-radius: 15px; padding: 25px; width: 100%; max-width: 450px; position: relative; max-height: 85vh; overflow-y: auto; }
         .close-modal { position: absolute; top: 15px; left: 20px; font-size: 20px; cursor: pointer; color: var(--text-sub); }
 
-        .checkout-form input, .checkout-form select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 11px; outline: none; }
+        .form-group { margin-bottom: 12px; text-align: right; }
+        .form-group label { display: block; font-size: 11px; margin-bottom: 4px; color: var(--maroon-main); font-weight: 600; }
+        .modal-box input, .modal-box select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 11px; outline: none; background: #FFF; }
 
         /* Footer */
         .main-footer { background: var(--pink-light); border-top: 1px solid var(--border-color); padding: 40px 20px 20px 20px; margin-top: 50px; }
@@ -100,7 +102,7 @@
     <header>
         <div class="header-container">
             <div class="header-icons">
-                <i class="fa-solid fa-shield-halved" onclick="handleAdminLogin()"></i>
+                <i class="fa-solid fa-shield-halved" onclick="openAdminModal()" title="إضافة منتج"></i>
             </div>
 
             <div class="logo-box" onclick="filterCategory('الكل')">
@@ -132,7 +134,7 @@
         </div>
     </section>
 
-    <!-- الأقسام مع وظائف الضغط -->
+    <!-- الأقسام -->
     <section class="categories-section">
         <div class="categories-grid">
             <div class="category-item active" onclick="filterCategory('الكل', this)">
@@ -171,22 +173,68 @@
         <div class="products-grid" id="products-container"></div>
     </section>
 
+    <!-- نافذة إضافة منتج جديد (لوحة الأدمن) مع رفع صورة من الاستديو -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeAdminModal()">&times;</span>
+            <h3 style="text-align:center; color:var(--maroon-main); margin-bottom:15px;">إضافة منتج جديد</h3>
+            
+            <div class="form-group">
+                <label>رمز الدخول</label>
+                <input type="password" id="admin-pass" placeholder="أدخل الرمز...">
+            </div>
+            <div class="form-group">
+                <label>اسم المنتج</label>
+                <input type="text" id="add-p-name" placeholder="مثال: عطر مسك الصافية">
+            </div>
+            <div class="form-group">
+                <label>السعر (بالدينار العراقي)</label>
+                <input type="number" id="add-p-price" placeholder="مثال: 15000">
+            </div>
+            <div class="form-group">
+                <label>القسم</label>
+                <select id="add-p-cat">
+                    <option value="عطور">عطور</option>
+                    <option value="مكياج">مكياج</option>
+                    <option value="عناية">عناية</option>
+                    <option value="ايس كوفي">ايس كوفي</option>
+                    <option value="بوكسات">بوكسات</option>
+                    <option value="قاصات">قاصات</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>اختر صورة من الاستديو 📷</label>
+                <input type="file" id="add-p-file" accept="image/*">
+            </div>
+
+            <button onclick="saveNewProduct()" style="background:var(--maroon-main); color:#FFF; border:none; padding:12px; width:100%; font-weight:bold; cursor:pointer; font-size:12px; border-radius:8px; margin-top:10px;">إضافة المنتج للمتجر</button>
+        </div>
+    </div>
+
     <!-- نافذة السلة -->
     <div class="modal-overlay" id="cart-modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleCartModal()">&times;</span>
             <h3 style="text-align:center; color:var(--maroon-main); margin-bottom:15px;">حقيبة التسوق</h3>
             <div id="cart-items" style="max-height:150px; overflow-y:auto; margin-bottom:15px; font-size:12px;"></div>
-            <div class="checkout-form">
+            
+            <div class="form-group">
                 <input type="text" id="cust-name" placeholder="الاسم الكامل">
+            </div>
+            <div class="form-group">
                 <input type="text" id="cust-phone" placeholder="رقم الهاتف">
+            </div>
+            <div class="form-group">
                 <select id="cust-city">
                     <option value="3000">بغداد (توصيل 3,000 د.ع)</option>
                     <option value="5000">باقي المحافظات (توصيل 5,000 د.ع)</option>
                 </select>
-                <input type="text" id="cust-address" placeholder="العنوان بالتفصيل">
-                <button onclick="sendCartToWhatsApp()" style="background:#25D366; color:#FFF; border:none; padding:12px; width:100%; font-weight:bold; cursor:pointer; font-size:12px; border-radius:8px;"><i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر الواتساب</button>
             </div>
+            <div class="form-group">
+                <input type="text" id="cust-address" placeholder="العنوان بالتفصيل">
+            </div>
+
+            <button onclick="sendCartToWhatsApp()" style="background:#25D366; color:#FFF; border:none; padding:12px; width:100%; font-weight:bold; cursor:pointer; font-size:12px; border-radius:8px;"><i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر الواتساب</button>
         </div>
     </div>
 
@@ -227,8 +275,7 @@
         const defaultProducts = [
             { id: '1', name: 'عطر أوركيد ملكي', price: 25000, category: 'عطور', image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400' },
             { id: '2', name: 'كوب ايس كوفي زجاجي', price: 10000, category: 'ايس كوفي', image_url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400' },
-            { id: '3', name: 'أحمر شفاه فاخر', price: 8000, category: 'مكياج', image_url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400' },
-            { id: '4', name: 'قاصة إلكترونية بكلمة سر', price: 18000, category: 'قاصات', image_url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400' }
+            { id: '3', name: 'أحمر شفاه فاخر', price: 8000, category: 'مكياج', image_url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400' }
         ];
 
         let products = JSON.parse(localStorage.getItem('faty_products')) || defaultProducts;
@@ -300,7 +347,7 @@
 
         function renderCartItems() {
             const container = document.getElementById('cart-items');
-            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center;">السلة فارغة</p>'; return; }
+            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center; color:var(--text-sub);">السلة فارغة</p>'; return; }
             container.innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${i.name} (${i.qty})</span><span>${Number(i.price * i.qty).toLocaleString()} د.ع</span></div>`).join('');
         }
 
@@ -324,23 +371,58 @@
             window.open(`https://wa.me/9647809962624?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function scrollToProducts() {
-            document.getElementById('products-sec').scrollIntoView({ behavior: 'smooth' });
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.add('active');
         }
 
-        function handleAdminLogin() {
-            const pass = prompt('رمز الإدارة:');
-            if (pass === '7890') {
-                const name = prompt('اسم المنتج:');
-                const price = prompt('السعر:');
-                const category = prompt('القسم (عطور/مكياج/عناية/ايس كوفي/بوكسات/قاصات):');
-                if(name && price && category) {
-                    products.unshift({ id: Date.now().toString(), name, price: Number(price), category, image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400' });
-                    localStorage.setItem('faty_products', JSON.stringify(products));
-                    renderProducts();
-                    alert('تم إضافة المنتج بنجاح');
-                }
-            } else if (pass) { alert('رمز خاطئ'); }
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.remove('active');
+        }
+
+        function saveNewProduct() {
+            const pass = document.getElementById('admin-pass').value;
+            const name = document.getElementById('add-p-name').value;
+            const price = document.getElementById('add-p-price').value;
+            const category = document.getElementById('add-p-cat').value;
+            const fileInput = document.getElementById('add-p-file');
+
+            if (pass !== '7890') {
+                alert('رمز الدخول غير صحيح');
+                return;
+            }
+
+            if (!name || !price || !fileInput.files[0]) {
+                alert('يرجى ملء جميع الحقول واختيار صورة من الاستديو');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgDataUrl = e.target.result;
+                products.unshift({
+                    id: Date.now().toString(),
+                    name: name,
+                    price: Number(price),
+                    category: category,
+                    image_url: imgDataUrl
+                });
+
+                localStorage.setItem('faty_products', JSON.stringify(products));
+                renderProducts();
+                closeAdminModal();
+                alert('✨ تم إضافة المنتج بنجاح مع الصورة!');
+
+                // إعادة تعيين الحقول
+                document.getElementById('add-p-name').value = '';
+                document.getElementById('add-p-price').value = '';
+                document.getElementById('add-p-file').value = '';
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function scrollToProducts() {
+            document.getElementById('products-sec').scrollIntoView({ behavior: 'smooth' });
         }
 
         window.onclick = function(event) {

@@ -36,77 +36,34 @@
             --glass-bg: rgba(43, 12, 20, 0.92);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1); }
+        body { background-color: var(--bg-body); color: var(--text-main); direction: rtl; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            direction: rtl;
-            overflow-x: hidden;
-        }
-
-        #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-body);
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
+        /* Preloader */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s ease; }
         #preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-        
-        .loader-logo-f {
-            width: 75px; height: 75px;
-            background: var(--maroon-main);
-            color: #FAF7F2;
-            font-family: 'Cinzel', serif;
-            font-size: 38px;
-            font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(88, 24, 37, 0.2);
-            animation: pulseLux 2.2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-            margin-bottom: 20px;
-            border: 1px solid var(--accent-gold);
-        }
+        .loader-logo-f { width: 75px; height: 75px; background: var(--maroon-main); color: #FAF7F2; font-family: 'Cinzel', serif; font-size: 38px; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 30px rgba(88, 24, 37, 0.2); animation: pulseLux 2.2s infinite cubic-bezier(0.4, 0, 0.6, 1); margin-bottom: 20px; border: 1px solid var(--accent-gold); }
         .loader-logo { font-family: 'Cinzel', serif; font-size: 20px; color: var(--maroon-main); letter-spacing: 6px; font-weight: 700; }
         @keyframes pulseLux { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.85; } }
 
+        /* Marquee Bar */
         .marquee-container { background: var(--maroon-main); color: #FAF7F2; padding: 10px 0; overflow: hidden; white-space: nowrap; position: relative; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500; }
         .marquee-track { display: inline-block; animation: marquee 30s linear infinite; }
         .marquee-track span { margin: 0 50px; }
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(50%); } }
 
+        /* Header */
         header { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 20px 40px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color); }
         .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .header-icons { display: flex; gap: 22px; align-items: center; }
-        .header-icons i { font-size: 18px; color: var(--maroon-main); cursor: pointer; transition: transform 0.2s; }
+        .header-icons i { font-size: 18px; color: var(--maroon-main); cursor: pointer; }
         .header-icons i:hover { transform: scale(1.15); color: var(--accent-gold); }
 
         .cart-icon-wrap, .wish-icon-wrap { position: relative; cursor: pointer; }
         .badge { position: absolute; top: -6px; right: -8px; background: var(--maroon-main); color: #FAF7F2; font-size: 9px; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 1px solid #FAF7F2; }
 
         .logo-box { display: flex; align-items: center; gap: 14px; cursor: pointer; }
-        .brand-icon-f {
-            width: 44px; height: 44px;
-            background: var(--maroon-main);
-            color: #FAF7F2;
-            font-family: 'Cinzel', serif;
-            font-size: 22px;
-            font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            border: 1px solid var(--accent-gold);
-        }
+        .brand-icon-f { width: 44px; height: 44px; background: var(--maroon-main); color: #FAF7F2; font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--accent-gold); }
         .logo-text h1 { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 3px; color: var(--maroon-main); line-height: 1; font-weight: 700; }
         .logo-text span { font-size: 8px; letter-spacing: 5px; color: var(--accent-gold); display: block; margin-top: 5px; text-transform: uppercase; font-weight: 600; }
 
@@ -120,12 +77,14 @@
         nav a.active::after, nav a:hover::after { width: 100%; }
         nav a.active, nav a:hover { color: var(--maroon-main); font-weight: 700; }
 
+        /* Hero */
         .hero { height: 75vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: linear-gradient(180deg, rgba(250,247,242,0.3) 0%, var(--bg-body) 100%), url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1800') center/cover fixed; padding: 0 20px; }
         .hero-subtitle { font-size: 11px; letter-spacing: 10px; color: var(--maroon-main); text-transform: uppercase; margin-bottom: 20px; font-weight: 700; font-family: 'Cinzel', serif; }
         .hero-title { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 400; line-height: 1.3; margin-bottom: 35px; color: var(--maroon-dark); }
         .btn-shop { background: var(--maroon-main); color: #FAF7F2; border: 1px solid var(--maroon-main); padding: 16px 45px; font-size: 11px; cursor: pointer; font-weight: 600; border-radius: 40px; letter-spacing: 2px; box-shadow: var(--shadow-lux); }
         .btn-shop:hover { background: transparent; color: var(--maroon-main); transform: translateY(-3px); }
 
+        /* Product Cards */
         .products-section { max-width: 1400px; margin: 40px auto 80px auto; padding: 0 30px; }
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
         @media (min-width: 768px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
@@ -149,13 +108,14 @@
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         .brand-badge { position: absolute; top: 28px; right: 28px; background: var(--maroon-main); color: #FAF7F2; border: 1px solid var(--accent-gold); font-size: 8px; padding: 4px 12px; font-weight: 700; z-index: 2; border-radius: 20px; letter-spacing: 1px; }
-        .wish-btn { position: absolute; top: 28px; left: 28px; color: var(--text-sub); cursor: pointer; font-size: 17px; z-index: 2; transition: transform 0.2s; }
-        .wish-btn:hover { transform: scale(1.2); }
+        .wish-btn { position: absolute; top: 28px; left: 28px; color: var(--text-sub); cursor: pointer; font-size: 17px; z-index: 2; }
         .wish-btn.active { color: #E74C3C; }
 
-        .product-img-wrap { width: 100%; height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 14px; background: #F5EFE6; position: relative; }
+        .product-img-wrap { width: 100%; height: 240px; border-radius: 12px; overflow: hidden; margin-bottom: 14px; background: #F5EFE6; position: relative; cursor: pointer; }
         .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         .product-card:hover .product-img { transform: scale(1.08); }
+        .img-overlay-text { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(88, 24, 37, 0.75); color: #fff; text-align: center; font-size: 10px; padding: 6px 0; opacity: 0; transition: opacity 0.3s; }
+        .product-img-wrap:hover .img-overlay-text { opacity: 1; }
 
         .product-rating { font-size: 10px; color: #D4AF37; margin-bottom: 6px; }
         .product-name { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text-main); line-height: 1.4; }
@@ -168,6 +128,7 @@
         .btn-quick-wa { background: #25D366; color: #FFF; border: none; }
         .btn-quick-wa:hover { opacity: 0.9; }
 
+        /* Modals */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(43, 12, 20, 0.6); backdrop-filter: blur(12px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal-overlay.active { display: flex; }
 
@@ -177,10 +138,9 @@
         .whatsapp-concierge { position: fixed; bottom: 30px; left: 30px; background: #25D366; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; z-index: 95; cursor: pointer; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); }
         .whatsapp-concierge:hover { transform: scale(1.1); }
 
-        .checkout-form input, .checkout-form select { padding: 14px 18px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 12px; background: var(--bg-body); color: var(--text-main); outline: none; width: 100%; margin-bottom: 12px; }
-        .checkout-form input:focus, .checkout-form select:focus { border-color: var(--maroon-main); background: #fff; }
+        .checkout-form input, .checkout-form select, .checkout-form textarea { padding: 14px 18px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 12px; background: var(--bg-body); color: var(--text-main); outline: none; width: 100%; margin-bottom: 12px; }
+        .checkout-form input:focus, .checkout-form select:focus, .checkout-form textarea:focus { border-color: var(--maroon-main); background: #fff; }
 
-        /* Toast Notification */
         #toast { position: fixed; bottom: -80px; right: 30px; background: var(--maroon-main); color: #FAF7F2; padding: 15px 25px; border-radius: 30px; font-size: 12px; border: 1px solid var(--accent-gold); box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 9999; transition: bottom 0.4s ease; }
         #toast.show { bottom: 30px; }
 
@@ -260,6 +220,29 @@
     </section>
 
     <!-- Modals -->
+    <!-- Modal المعاينة السريعة للمنتج التفصيلية -->
+    <div class="modal-overlay" id="product-detail-modal">
+        <div class="modal-box" style="max-width: 550px;">
+            <span class="close-modal" onclick="toggleDetailModal()">&times;</span>
+            <div style="text-align: center;">
+                <img id="detail-img" src="" style="width: 100%; height: 280px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--border-color);">
+                <span id="detail-badge" class="brand-badge" style="position: static; display: inline-block; margin-bottom: 10px;"></span>
+                <h2 id="detail-name" style="color: var(--maroon-main); font-size: 20px; margin-bottom: 8px;"></h2>
+                <div class="product-rating" style="font-size: 14px; margin-bottom: 10px;">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <div id="detail-price" style="font-size: 22px; font-weight: bold; color: var(--accent-gold); margin-bottom: 15px; font-family: 'Cinzel', serif;"></div>
+                <div id="detail-desc" style="font-size: 13px; color: var(--text-sub); line-height: 1.8; margin-bottom: 20px; background: rgba(88,24,37,0.03); padding: 15px; border-radius: 12px; text-align: right;"></div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button id="detail-add-cart-btn" class="btn-add-cart" style="padding: 15px 0;">إضافة لحقيبة التسوق</button>
+                    <button id="detail-wa-btn" class="btn-quick-wa" style="padding: 15px 0;"><i class="fa-brands fa-whatsapp"></i> طلب مباشر</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals السلة والأمنيات والسياسة -->
     <div class="modal-overlay" id="cart-modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleCartModal()">&times;</span>
@@ -292,7 +275,7 @@
             <h3 style="text-align:center; color:var(--maroon-main); margin-bottom:15px; font-family:'Cinzel', serif;">سياسة التوصيل والإرجاع</h3>
             <p style="font-size:12px; color:var(--text-sub); line-height:1.8;">
                 ✦ **مدة التوصيل:** يتم تسليم الطلبات داخل بغداد خلال 24-48 ساعة، وللمحافظات خلال 2-4 أيام عمل.<br>
-                ✦ **الاستبدال والإرجاع:** يمكن استبدال المنتجات فقط في حال وجود تلف أو خطأ في الطلب خلال 24 ساعة من الاستلام بشريطها الأصلي.<br>
+                ✦ **الاستبدال والإرجاع:** يمكن استبدال المنتجات في حال وجود تلف أو خطأ في الطلب خلال 24 ساعة من الاستلام بشريطها الأصلي.<br>
                 ✦ **التغليف الفاخر:** جميع الطلبات تغلف بحب كهدية قيمة تليق بكم.
             </p>
         </div>
@@ -310,11 +293,34 @@
     </footer>
 
     <script>
-        // المنتجات الافتراضية الأولية لضمان عدم ظهور المتجر فارغاً
         const defaultProducts = [
-            { id: '1', name: 'عطر أوركيد النيش الملكي', price: 45000, category: 'العطور', badge: 'الأكثر طلباً', image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400' },
-            { id: '2', name: 'سيروم الذهب للوجه', price: 28000, category: 'العناية', badge: 'إصدار محدود', image_url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400' },
-            { id: '3', name: 'مجموعة أرواج المخمل', price: 32000, category: 'المكياج', badge: 'جديد', image_url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400' }
+            { 
+                id: '1', 
+                name: 'عطر أوركيد النيش الملكي', 
+                price: 45000, 
+                category: 'العطور', 
+                badge: 'الأكثر طلباً', 
+                image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400',
+                description: 'عطر ملكي حاص بتركيز إكستري دو بارفان، يجمع بين نفحات العود الأنيق، الأوركيد الأسود، والفانيليا النادرة ليعطيكِ حضوراً مبهراً طوال اليوم.'
+            },
+            { 
+                id: '2', 
+                name: 'سيروم الذهب والحلزون الملكي', 
+                price: 28000, 
+                category: 'العناية', 
+                badge: 'إصدار محدود', 
+                image_url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400',
+                description: 'سيروم فاخر يحتوي على رقائق الذهب عيار 24 ومستخلصات ترميم البشرة لإعطاء نضارة فائقة وترطيب عميق من الاستخدام الأول.'
+            },
+            { 
+                id: '3', 
+                name: 'مجموعة أرواج المخمل المخملية', 
+                price: 32000, 
+                category: 'المكياج', 
+                badge: 'جديد', 
+                image_url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400',
+                description: 'مجموعة مكونة من 4 ألوان أحمر شفاه مات بلمسة مخملية لا تجفف الشفاه، وتدوم لأكثر من 12 ساعة بدون تكتل.'
+            }
         ];
 
         let products = JSON.parse(localStorage.getItem('faty_products')) || defaultProducts;
@@ -364,13 +370,14 @@
                     <div class="product-card" style="animation-delay: ${index * 0.08}s">
                         <div class="brand-badge">${prod.badge || 'الأكثر طلباً'}</div>
                         <i class="fa-solid fa-heart wish-btn ${isWish ? 'active' : ''}" onclick="toggleWishlist('${prod.id}')"></i>
-                        <div class="product-img-wrap">
+                        <div class="product-img-wrap" onclick="openProductDetail('${prod.id}')">
                             <img src="${prod.image_url}" class="product-img">
+                            <div class="img-overlay-text"><i class="fa-solid fa-eye"></i> اضغطي للمعاينة والتفاصيل</div>
                         </div>
                         <div class="product-rating">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <div class="product-name">${prod.name}</div>
+                        <div class="product-name" onclick="openProductDetail('${prod.id}')" style="cursor:pointer;">${prod.name}</div>
                         <div class="product-price">${Number(prod.price).toLocaleString()} د.ع</div>
                         <div class="product-actions-grid">
                             <button class="btn-add-cart" onclick="addToCart('${prod.id}')">إضافة للسلة</button>
@@ -380,6 +387,25 @@
                 `;
             });
         }
+
+        // فتح نافذة التفاصيل السريعة عند الضغط على الصورة
+        function openProductDetail(id) {
+            const prod = products.find(p => p.id == id);
+            if (!prod) return;
+
+            document.getElementById('detail-img').src = prod.image_url;
+            document.getElementById('detail-name').innerText = prod.name;
+            document.getElementById('detail-badge').innerText = prod.badge || 'الأكثر طلباً';
+            document.getElementById('detail-price').innerText = Number(prod.price).toLocaleString() + ' د.ع';
+            document.getElementById('detail-desc').innerText = prod.description || 'هذا المنتج فاخر ومنتقى بعناية من أفضل الماركات العالمية الخاصة ببراند Faty Storee1 ليضمن لكِ الجودة والفخامة.';
+            
+            document.getElementById('detail-add-cart-btn').onclick = () => { addToCart(prod.id); toggleDetailModal(); };
+            document.getElementById('detail-wa-btn').onclick = () => { buyDirectWhatsApp(prod.name, prod.price); };
+
+            toggleDetailModal();
+        }
+
+        function toggleDetailModal() { document.getElementById('product-detail-modal').classList.toggle('active'); }
 
         function filterCategory(cat) { 
             currentCategory = cat; 
@@ -470,6 +496,7 @@
                                 <option value="بوكسات">بوكسات</option>
                             </select>
                             <input type="text" id="n-badge" placeholder="شارة المنتج (مثال: الأكثر طلباً)">
+                            <textarea id="n-desc" placeholder="وصف المنتج وتفاصيله (المكونات/طريقة الاستخدام)" rows="3"></textarea>
                             <label style="font-size:11px; color:var(--maroon-main); display:block; margin-bottom:5px;">صورة المنتج:</label>
                             <input type="file" id="n-img" accept="image/*" onchange="compressAndConvertImg(this)">
                             <div id="img-status" style="font-size:10px; color:#25D366; margin-bottom:8px;"></div>
@@ -512,6 +539,7 @@
                 const p = document.getElementById('n-price').value.trim();
                 const c = document.getElementById('n-cat').value;
                 const b = document.getElementById('n-badge').value.trim() || 'الأكثر طلباً';
+                const d = document.getElementById('n-desc').value.trim() || 'منتج متميز وعالي الجودة من براند Faty Storee1.';
                 
                 if(!n || !p) { alert('يرجى إدخال اسم المنتج والسعر'); return; }
 
@@ -522,6 +550,7 @@
                         products[index].price = Number(p);
                         products[index].category = c;
                         products[index].badge = b;
+                        products[index].description = d;
                         if (upImg) products[index].image_url = upImg;
                         showToast('✨ تم تعديل المنتج بنجاح');
                     }
@@ -532,6 +561,7 @@
                         price: Number(p),
                         category: c,
                         badge: b,
+                        description: d,
                         image_url: upImg || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400'
                     };
                     products.unshift(newProd);
@@ -551,6 +581,7 @@
             document.getElementById('n-price').value = prod.price;
             document.getElementById('n-cat').value = prod.category;
             document.getElementById('n-badge').value = prod.badge || '';
+            document.getElementById('n-desc').value = prod.description || '';
             document.getElementById('admin-form-title').innerText = 'لوحة التحكم - تعديل المنتج';
             document.getElementById('admin-submit-btn').innerText = 'حفظ التعديلات ✨';
             document.getElementById('admin-cancel-btn').style.display = 'block';
@@ -563,6 +594,7 @@
             document.getElementById('n-name').value = '';
             document.getElementById('n-price').value = '';
             document.getElementById('n-badge').value = '';
+            document.getElementById('n-desc').value = '';
             document.getElementById('n-img').value = '';
             document.getElementById('img-status').innerText = '';
             document.getElementById('admin-form-title').innerText = 'لوحة التحكم - إضافة منتج';
